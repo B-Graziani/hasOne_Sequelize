@@ -45,8 +45,14 @@ const initDb = () => {
       timestamps: false,
     }
   );
-  Country.hasOne(Capital);
-  Capital.belongsTo(Country);
+  // Country.hasOne(Capital);
+  // Capital.belongsTo(Country);
+
+  //i delete both
+  // Country.hasOne(Capital, { onDelete: "CASCADE" });
+  //i update this
+  Country.hasOne(Capital, { onUpdate: "CASCADE" });
+  Capital.belongsTo(Country, { onDelete: "CASCADE" });
 
   let country, capital;
 
@@ -61,6 +67,10 @@ const initDb = () => {
       //     countryName: "USA",
       //   });
       // =====================
+      // return Country.findOne({ where: { countryName: "France" } });
+      // =====================
+      // return Country.destroy({ where: { countryName: "Spain" } });
+      // ======================
       return Country.findOne({ where: { countryName: "France" } });
     })
     .then((data) => {
@@ -73,11 +83,15 @@ const initDb = () => {
       //   country = data;
       //   return country.createCapital({
       //     capitalName: "Washington",
-      //   });
       // =====================
       country = data;
       return Capital.findOne({ where: { capitalName: "Paris" } });
     })
+    // =====================
+    // country = data;
+    // return Capital.findOne({ where: { capitalName: "Paris" } });
+    // =====================
+    // })
     .then((data) => {
       //   country = data;
       //   country.setCapital(capital);
@@ -86,7 +100,12 @@ const initDb = () => {
       //=========================
       //   console.log(data.toJSON());
       // =====================
+      // capital = data;
+      // return capital.setCountry(country);
+      // =====================
       capital = data;
+      // return country.setCapital(capital);
+      // =====================
       return capital.setCountry(country);
     })
     .then((data) => {
