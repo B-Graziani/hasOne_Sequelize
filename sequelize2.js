@@ -47,12 +47,47 @@ const initDb2 = () => {
     }
   );
 
-  User.hasMany(Post);
-  Post.belongsTo(User);
+  //   User.hasMany(Post);
+  //   Post.belongsTo(User);
+
+  User.hasMany(Post, { onDelete: "CASCADE" });
+  Post.belongsTo(User, { onDelete: "CASCADE" });
+
+  let user, posts;
 
   sequelize
     .sync({ alter: true })
-    .then(() => {})
+    .then(() => {
+      //   return User.findOne({ where: { username: "testMike" } });
+      //=======================
+      //   return User.destroy({ where: { username: "testMike" } });
+      //=====================
+      return User.findOne();
+    })
+    .then((data) => {
+      //   user = data;
+      //   //   return Post.findAll();
+      //   //==========================
+      //   //   return user.countPosts();
+      //   //==========================
+      //   return Post.findOne();
+      //=======================
+      user = data;
+      return Post.findOne();
+    })
+    .then((data) => {
+      //   //   posts = data;
+      //   //   return user.addPosts(posts);
+      //   //==========================
+      //   posts = data;
+      //   return user.removePost(posts);
+      //=====================
+      posts = data;
+      posts.setUser(user);
+    })
+    // .then((data) => {
+    //   console.log(data);
+    // })
     .catch((error) => {
       console.log(error);
     });

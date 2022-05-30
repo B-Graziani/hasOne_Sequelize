@@ -2,14 +2,14 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 // const sequelize = require("./sequelize");
-const sequelize = require("./sequelize2");
+const sequelize = require("./sequelize3");
 
 const app = express();
 const port = 3000;
 
 app.use(bodyParser.json());
 
-sequelize.initDb2();
+sequelize.initDb3();
 
 app.get("/", (req, res) => {
   res.json("hello Ben");

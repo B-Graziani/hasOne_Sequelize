@@ -1,5 +1,7 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
+// ONE TO ONE
+
 sequelize = new Sequelize("differentes-relations", "root", "root", {
   port: 8889,
   dialect: "mariadb",
